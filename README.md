@@ -8,35 +8,30 @@ Dataset
 The dataset used for this project is a publicly available telecom customer churn dataset from Kaggle. It contains information on 7043 customers and their usage of the company's services. The dataset can be found here: https://www.kaggle.com/blastchar/telco-customer-churn
 Project Steps
 
-    Load and explore the dataset
-    Prepare the data for modeling
-    Train the logistic regression model
-    Evaluate the model on a test set
-    Interpret the results
+   1. Load and explore the dataset
+   2. Prepare the data for modeling
+   3. Train the logistic regression model
+   4. Evaluate the model on a test set
+   5. Interpret the results
 
-Code
-Load and Explore the Dataset
-
-python
+# Code Overview
+## Load and Explore the Dataset
 
 import pandas as pd
 
-# Load the dataset
+## Load the dataset
 df = pd.read_csv('telco-customer-churn.csv')
 
-# Explore the dataset
+## Explore the dataset
 print(df.head())
 print(df.info())
 print(df.describe())
 
-Prepare the Data for Modeling
-
-python
-
-# Drop the customerID column since it is not relevant for modeling
+## Prepare the Data for Modeling
+## Drop the customerID column since it is not relevant for modeling
 df.drop('customerID', axis=1, inplace=True)
 
-# Convert the binary columns to 0/1
+## Convert the binary columns to 0/1
 df['gender'] = df['gender'].map({'Male': 1, 'Female': 0})
 df['Partner'] = df['Partner'].map({'Yes': 1, 'No': 0})
 df['Dependents'] = df['Dependents'].map({'Yes': 1, 'No': 0})
@@ -44,7 +39,7 @@ df['PhoneService'] = df['PhoneService'].map({'Yes': 1, 'No': 0})
 df['PaperlessBilling'] = df['PaperlessBilling'].map({'Yes': 1, 'No': 0})
 df['Churn'] = df['Churn'].map({'Yes': 1, 'No': 0})
 
-# Convert the categorical columns to dummy variables
+## Convert the categorical columns to dummy variables
 df = pd.get_dummies(df, columns=['MultipleLines', 'InternetService', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies', 'Contract', 'PaymentMethod'], drop_first=True)
 
 # Split the data into training and testing sets
@@ -63,8 +58,6 @@ X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
 Train the Logistic Regression Model
-
-python
 
 from sklearn.linear_model import LogisticRegression
 
